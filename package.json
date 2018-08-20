@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:dev": "webpack-dev-server --mode development",
+    "lint": "eslint ./src/"
   },
   "repository": {
     "type": "git",
@@ -17,7 +19,6 @@
   },
   "homepage": "https://github.com/green-fox-academy/react-eugene-xu#readme",
   "dependencies": {
-    "eslint-config-airbnb": "^17.1.0",
     "react": "^16.4.2",
     "react-dom": "^16.4.2"
   },
@@ -27,6 +28,10 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "eslint": "^5.4.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-react": "^7.11.1",
     "webpack": "^4.16.5",
     "webpack-cli": "^3.1.0",
     "webpack-dev-server": "^3.1.5"
