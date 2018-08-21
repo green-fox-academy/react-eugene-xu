@@ -1,57 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ArrowKeysReact from 'arrow-keys-react';
+import { createStore } from 'redux';
+import Action from './actions/action';
+import reducer from './reducers/reducer';
 
-class Index extends React.Component {
-  constructor() {
-    super();
-    this.state = { count: 0 };
-    this.handleIncrement = this.handleIncrement.bind(this);
-    this.handleDecrement = this.handleDecrement.bind(this);
+// import States from './indexwithstates';
 
-    ArrowKeysReact.config({
-      left: () => {
-      },
-      right: () => {
-      },
-      up: () => {
-        const { count } = this.state;
-        this.setState({ count: count + 1 });
-      },
-      down: () => {
-        const { count } = this.state;
-        if (count > 0) {
-          this.setState({ count: count - 1 });
-        }
-      },
-    });
-  }
+// ReactDOM.render(<States />, document.getElementById('root'));
 
-  handleIncrement() {
-    this.setState(e => ({ count: e.count + 1 }));
-  }
+const store = createStore(reducer);
 
-  handleDecrement() {
-    const { count } = this.state;
-    if (count > 0) {
-      this.setState(e => ({ count: e.count - 1 }));
-    }
-  }
+const render = () => {
+  ReactDOM.render(
+    <Action
+      value={store.getState()}
+      onIncrement={() => store.dispatch({ type: 'BUYING' })}
+      onDecrement={() => store.dispatch({ type: 'EATING' })}
+    />,
+    document.getElementById('root'),
+  );
+};
 
-  render() {
-    const { count } = this.state;
-    return (
-      <div {...ArrowKeysReact.events} tabIndex="1">
-        <h1>Hello, Green Fox Academy!</h1>
-        <button type="button" onClick={this.handleIncrement}>Buy one</button>
-        <div>{count}</div>
-        <button type="button" onClick={this.handleDecrement}>Eat one</button>
-      </div>
-    );
-  }
-}
-
-ReactDOM.render(
-  <Index />,
-  document.getElementById('root'),
-);
+render();
+store.subscribe(render);
