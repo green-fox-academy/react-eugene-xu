@@ -1,60 +1,46 @@
-import React from 'react';
-// import ReactDOM from 'react-dom';
-// import ArrowKeysReact from 'arrow-keys-react';
+import React, { Component } from 'react';
+import Button from './components/Button';
+import Display from './components/Display';
 
-class States extends React.Component {
+class WithStates extends Component {
   constructor() {
     super();
-    this.state = { count: 0 };
-    this.handleIncrement = this.handleIncrement.bind(this);
-    this.handleDecrement = this.handleDecrement.bind(this);
-
-    // ArrowKeysReact.config({
-    //   left: () => {
-    //   },
-    //   right: () => {
-    //   },
-    //   up: () => {
-    //     const { count } = this.state;
-    //     this.setState({ count: count + 1 });
-    //   },
-    //   down: () => {
-    //     const { count } = this.state;
-    //     if (count > 0) {
-    //       this.setState({ count: count - 1 });
-    //     }
-    //   },
-    // });
+    this.state = {
+      count: 0,
+    };
   }
 
-  handleIncrement() {
-    this.setState(e => ({ count: e.count + 1 }));
+  componentDidMount() {
+    window.addEventListener('keydown', (e) => {
+      if (e.keyCode === 38) {
+        this.handle(+1)();
+      } else if (e.keyCode === 40) {
+        this.handle(-1)();
+      }
+    });
   }
 
-  handleDecrement() {
-    const { count } = this.state;
-    if (count > 0) {
-      this.setState(e => ({ count: e.count - 1 }));
-    }
+  handle(param) {
+    return () => {
+      const { count } = this.state;
+      if (param === 1) {
+        this.setState(prevState => ({ count: prevState.count + param }));
+      } else if (param === -1 && count > 0) {
+        this.setState(prevState => ({ count: prevState.count + param }));
+      }
+    };
   }
 
   render() {
     const { count } = this.state;
     return (
-      // <div {...ArrowKeysReact.events} tabIndex="1">
       <div>
-        <h1>Hello, Green Fox Academy!</h1>
-        <button id="up" type="button" onClick={this.handleIncrement}>Buy one</button>
-        <div>{count}</div>
-        <button id="down" type="button" onClick={this.handleDecrement}>Eat one</button>
+        <Button id="up" value="Buy One" callback={this.handle(+1)} />
+        <Display count={count} />
+        <Button id="down" value="Eat One" callback={this.handle(-1)} />
       </div>
     );
   }
 }
 
-// ReactDOM.render(
-//   <States />,
-//   document.getElementById('root'),
-// );
-
-export default States;
+export default WithStates;
