@@ -10,15 +10,15 @@ class WithStates extends Component {
     };
   }
 
-  componentDidMount() {
-    window.addEventListener('keydown', (e) => {
-      if (e.keyCode === 38) {
-        this.handle(+1)();
-      } else if (e.keyCode === 40) {
-        this.handle(-1)();
-      }
-    });
-  }
+  // componentDidMount() {
+  //   window.addEventListener('keydown', (e) => {
+  //     if (e.keyCode === 38) {
+  //       this.handle(+1)();
+  //     } else if (e.keyCode === 40) {
+  //       this.handle(-1)();
+  //     }
+  //   });
+  // }
 
   handle(param) {
     return () => {
